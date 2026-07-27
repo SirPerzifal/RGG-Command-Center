@@ -92,8 +92,13 @@ export class CallService implements OnDestroy {
       this.userName = `Command Center - ${currentUser.user_id}`;
     
       this.socket = io('wss://ws.sgeede.com', {
-      // this.socket = io('http://localhost:8091', {
         query: { uniqueId: currentUser.user_id ? `RGG-${currentUser.user_id}` : 'Public-user' },
+        reconnection: true,
+        reconnectionAttempts: Infinity,
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+        timeout: 10000,
+        transports: ['websocket', 'polling'],
       });
       this.refreshCallLog();
 
@@ -102,6 +107,8 @@ export class CallService implements OnDestroy {
       this.socket.on('ice-candidate', (candidate: any) => this.handleICECandidate(candidate));
       this.socket.on('end-call', () => this.handleEndCall());
       this.socket.on('reject-call', () => this.handleRejectCall());
+      this.socket.on('call-timeout', () => { this.handleRejectCall(); this.refreshCallLog(); });
+      this.socket.on('kick-user', (data: any) => this.cleanup());
       this.socket.on('user-not-found', (data: any) => this.handleUserNotFound(data));
       this.socket.on('receiver-info', (data: any) => this.handleReceiverInfo(data));
       this.socket.on('receiver-pending-call', (data: any) => this.handleReceiverPendingCall(data));
