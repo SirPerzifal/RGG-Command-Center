@@ -1231,6 +1231,43 @@ export class CallService implements OnDestroy {
     this.rggState = state
     this.refreshIncomingCall()
     console.log('this.rggStatestandbystandbystandby', this.rggState)
+    this.sendLogToBackend(state)
+  }
+
+  private sendLogToBackend(state: string) {
+    const apiUrl = `${environment.apiUrl}/rgg/create-status-log`;
+    const payload: any = {
+      status: state,
+      user_id: this.userId || null,
+      latitude: 0,
+      longitude: 0,
+    };
+
+    if (typeof window !== 'undefined' && 'geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          payload.latitude = position.coords.latitude;
+          payload.longitude = position.coords.longitude;
+          this.http.post<any>(apiUrl, payload).subscribe({
+            next: (res) => console.log('Status log created successfully:', res),
+            error: (err) => console.error('Error creating status log:', err),
+          });
+        },
+        (error) => {
+          console.warn('Geolocation unavailable or denied, creating log without coordinates:', error);
+          this.http.post<any>(apiUrl, payload).subscribe({
+            next: (res) => console.log('Status log created successfully:', res),
+            error: (err) => console.error('Error creating status log:', err),
+          });
+        },
+        { timeout: 5000 }
+      );
+    } else {
+      this.http.post<any>(apiUrl, payload).subscribe({
+        next: (res) => console.log('Status log created successfully:', res),
+        error: (err) => console.error('Error creating status log:', err),
+      });
+    }
   }
 
   audioPath = 'assets/audio/ringtone.mp3'
