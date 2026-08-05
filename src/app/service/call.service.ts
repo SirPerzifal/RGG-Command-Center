@@ -1243,7 +1243,7 @@ export class CallService implements OnDestroy {
       longitude: 0,
     };
 
-    if (typeof window !== 'undefined' && 'geolocation' in navigator) {
+    if (typeof window !== 'undefined' && typeof navigator !== 'undefined' && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           payload.latitude = position.coords.latitude;

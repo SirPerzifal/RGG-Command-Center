@@ -30,6 +30,13 @@
             "styles": [
               "src/styles.scss"
             ],
+            "allowedCommonJsDependencies": [
+              "socket.io-client",
+              "engine.io-client",
+              "debug",
+              "xmlhttprequest-ssl"
+            ],
+            "prerender": false,
             "server": "src/main.server.ts",
             "outputMode": "server",
             "ssr": {
