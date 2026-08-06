@@ -1181,7 +1181,7 @@ export class CallService implements OnDestroy {
   }}
 
   async openGate(intercom_id: any) {
-    this.socket.emit('intercom-open-gate', { intercom_id: intercom_id });
+    this.socket.emit('intercom-open-gate', { intercom_id: intercom_id, opened_by: 'rgg' });
   }
 
   async closeGate(intercom_id: any) {
