@@ -1137,7 +1137,7 @@ export class CallService implements OnDestroy {
           ? response 
           : response.data ?? [];
         this.incomingCallListSubject.next(list);
-        if (list.length > 0 && this.rggState == 'away') {
+        if (list.length > 0 && this.rggState == 'standby') {
           this.startRingtone();
         } else {
           this.endRingtone();
