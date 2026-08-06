@@ -85,6 +85,12 @@ export class GateControl {
     }
   }
 
+  callIntercom(gate: any) {
+    if (gate && gate.id) {
+      this.callService.createOfferRecord(false, `Intercom-${gate.id}`, false, true, { intercom_id: gate.id, caller_name: gate.name || 'Intercom' });
+    }
+  }
+
   stopRingtone(gate: any) {
         this.callService.stopRingtone(`Intercom-${gate.id}`)
   }
