@@ -7,7 +7,7 @@ import { CallService } from '../../service/call.service';
 @Component({
   selector: 'app-gate-control',
   standalone: true,
-  imports: [CommonModule, FormsModule, ],
+  imports: [CommonModule, FormsModule,],
   templateUrl: './gate-control.html',
   styleUrl: './gate-control.scss'
 })
@@ -21,7 +21,7 @@ export class GateControl {
     this.loadProjects();
     document.addEventListener('click', this.handleClickOutside, true);
   }
-
+  sadf
   ngOnDestroy() {
     document.removeEventListener('click', this.handleClickOutside, true);
   }
@@ -32,14 +32,14 @@ export class GateControl {
 
   isGate = false
   isIntercom = false
-  
+
   isLoading = false
   errMessage = ''
 
   getGates() {
     this.isLoading = true
     this.Gates = []
-    this.ApiUrl.urlApi('/rgg/get-gates', {project_id: this.selectedProject.id}).subscribe({
+    this.ApiUrl.urlApi('/rgg/get-gates', { project_id: this.selectedProject.id }).subscribe({
       next: (response) => {
         this.isLoading = false;
         if (response.code === 200) {
@@ -61,7 +61,7 @@ export class GateControl {
 
   openGate(gate: any, is_close: boolean = false) {
     if (this.isGate) {
-      this.ApiUrl.urlApi('/rgg/open-barrier', {camera_id: gate.id, is_close: is_close}).subscribe({
+      this.ApiUrl.urlApi('/rgg/open-barrier', { camera_id: gate.id, is_close: is_close }).subscribe({
         next: (response) => {
           this.isLoading = false;
           if (response.code === 200) {
@@ -92,15 +92,15 @@ export class GateControl {
   }
 
   stopRingtone(gate: any) {
-        this.callService.stopRingtone(`Intercom-${gate.id}`)
+    this.callService.stopRingtone(`Intercom-${gate.id}`)
   }
 
   refreshChamera(gate: any) {
-        this.callService.refreshChamera(`Intercom-${gate.id}`)
+    this.callService.refreshChamera(`Intercom-${gate.id}`)
   }
 
   restartIntercom(gate: any) {
-        this.callService.restartIntercom(`Intercom-${gate.id}`)
+    this.callService.restartIntercom(`Intercom-${gate.id}`)
   }
 
   Projects: any = []
@@ -133,7 +133,7 @@ export class GateControl {
     const input = event.target as HTMLInputElement;
     if ((event.key === 'Backspace' && !this.search_project && this.selectedProject)) {
       this.selectProject(this.selectedProject)
-    }  
+    }
     this.search_project = input.value || ''
     this.is_search_focus = true
     this.FilteredProjects = this.Projects.filter((item: any) => item.name.toLowerCase().includes(this.search_project))
@@ -169,10 +169,10 @@ export class GateControl {
   handleClickOutside = (event: MouseEvent) => {
     const selectionClicked = this.selectionComponent.nativeElement.contains(event.target);
     const searchClicked = this.searchComponent.nativeElement.contains(event.target);
-      if (!searchClicked && !selectionClicked) {
-        this.is_search_focus = false
-        this.cdr.detectChanges();
-      }
+    if (!searchClicked && !selectionClicked) {
+      this.is_search_focus = false
+      this.cdr.detectChanges();
+    }
   };
 
   checkboxKeyed(event: KeyboardEvent, project: any) {
