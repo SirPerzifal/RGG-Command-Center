@@ -342,9 +342,11 @@ export class CallService implements OnDestroy {
       return;
     }
     this.ongoingCallRecordSubject.next(callRecord);
-    this.callActionStatusSubject.next('calling');
-
-    let activate_video = String(receiverId).includes('Intercom-') ? true : false ;
+    let is_intercom = String(receiverId).includes('Intercom-');
+    if (is_intercom) {
+      isResident = false;
+    }
+    let activate_video = is_intercom ? true : false ;
     await this.startLocalStream(activate_video);
 
     this.peerConnection = new RTCPeerConnection({ iceServers: this.iceServers, iceTransportPolicy: 'all' });
