@@ -21,7 +21,7 @@ export class GateControl {
     this.loadProjects();
     document.addEventListener('click', this.handleClickOutside, true);
   }
-  sadf
+
   ngOnDestroy() {
     document.removeEventListener('click', this.handleClickOutside, true);
   }
