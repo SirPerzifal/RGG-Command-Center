@@ -59,9 +59,9 @@ export class GateControl {
     });
   }
 
-  openGate(gate: any, is_close: boolean = false) {
+  openGate(gate: any, is_close: boolean = false, freeze: boolean = false) {
     if (this.isGate) {
-      this.ApiUrl.urlApi('/rgg/open-barrier', { camera_id: gate.id, is_close: is_close }).subscribe({
+      this.ApiUrl.urlApi('/rgg/open-barrier', { camera_id: gate.id, is_close: is_close, freeze: freeze }).subscribe({
         next: (response) => {
           this.isLoading = false;
           if (response.code === 200) {

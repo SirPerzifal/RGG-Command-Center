@@ -58,8 +58,9 @@
                             <!-- atau lihat semua -->
                         </div>
                         <div class="xl:space-x-2 flex flex-col xl:flex-row">
-                            <button class="text-emerald-400 hover:text-emerald-600 font-medium p-1 rounded hover:bg-emerald-50" (click)="openGate(gate, false)">Open Gate</button>
-                            <button class="text-red-600 hover:text-red-800 font-medium p-1 rounded hover:bg-red-50" (click)="openGate(gate, true)">Close Gate</button>
+                            <button class="text-emerald-400 hover:text-emerald-600 font-medium p-1 rounded hover:bg-emerald-50" (click)="openGate(gate, false, false)">Open Gate</button>
+                            <button *ngIf="isGate" class="text-amber-500 hover:text-amber-700 font-medium p-1 rounded hover:bg-amber-50" (click)="openGate(gate, false, true)">Freeze Gate</button>
+                            <button class="text-red-600 hover:text-red-800 font-medium p-1 rounded hover:bg-red-50" (click)="openGate(gate, true, false)">Close Gate</button>
                             
                             <!-- 3-dot Dropdown Menu -->
                             @if (isIntercom) {
